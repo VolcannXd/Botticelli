@@ -35,6 +35,20 @@ def ChangeParam() :
     canvasPosX = randint(1, 5)
     print("[DEBUG] : Change 3D parameters, cam Y pos =", camPos[1], "; canvas Pos X =", canvasPosX)
 
+def GphysiXpanel() :
+    GphysiXRoot = tk.Tk()
+    GphysiXRoot.title("3D Parameters")
+    
+    GphysiXframe = tk.Frame(GphysiXRoot, width = 250, height = 250)
+    GphysiXframe.pack(fill = None, expand = False)
+
+    TitleTXT = tk.Label(master = GphysiXframe, text = "GphysiX 1.0", width = 20, height = 2, font=('Open Sans', '24')).pack()
+    ResetBTN = tk.Button(master = GphysiXframe, text = "Reset Default Parameters", command = ResetDefault, width = 50, bg = "#07C87D", fg = "#FFFFFF").pack()
+    RandomBTN = tk.Button(master = GphysiXframe, text = "Set Random Parameters", command = ChangeParam, width = 50, bg = "#07C87D", fg = "#FFFFFF").pack()
+    
+
+    GphysiXRoot.mainloop()
+
 def changeParametersFrame() :
     stgRoot = tk.Tk()
     stgRoot.title("3D Parameters")
@@ -120,6 +134,7 @@ def GetInfos() :
 
 genBTN = tk.Button(master = frame, text = "Generate 3D grid", command = Generate3dGrid, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
 changeBTN = tk.Button(master = frame, text = "Change 3D parameters", command = changeParametersFrame, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
+GphysiXBTN = tk.Button(master = frame, text = "Open GphysiX 1.0 panel", command = GphysiXpanel, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
 infosBTN = tk.Button(master = frame, text = "Get Infos (CONSOLE)", command = GetInfos, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
 closeBTN = tk.Button(master = frame, text = "Close", command = exit, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
 tk.Label(master = frame,text = "Botticelli 3D engine - Arthur DETAILLE").pack()
