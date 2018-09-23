@@ -70,6 +70,14 @@ def panelEnv() :
     ResetBTN = tk.Button(master = envFrame, text = "Reset Parameters", command = resetParam).pack()
     RandomBTN = tk.Button(master = envFrame, text = "Random Parameters", command = randomParam).pack()
 
+    CamPosX = tk.Entry(master = envFrame).pack()
+    CamPosY = tk.Entry(master = envFrame).pack()
+    CamPosZ = tk.Entry(master = envFrame).pack()
+
+    canvasPosX = tk.Entry(master = envFrame).pack()
+
+    ApplyBTN = tk.Button(master = envFrame, text = "Apply Changes").pack()
+
     drawEnv()
     envFrame.mainloop()
 
