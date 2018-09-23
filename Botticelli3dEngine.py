@@ -37,13 +37,13 @@ def ChangeParam() :
 
 def GphysiXpanel() :
     GphysiXRoot = tk.Tk()
-    GphysiXRoot.title("3D Parameters")
+    GphysiXRoot.title("GphysiX panel")
     
     GphysiXframe = tk.Frame(GphysiXRoot, width = 250, height = 250)
     GphysiXframe.pack(fill = None, expand = False)
 
     TitleTXT = tk.Label(master = GphysiXframe, text = "GphysiX 1.0", width = 20, height = 2, font=('Open Sans', '24')).pack()
-    ResetBTN = tk.Button(master = GphysiXframe, text = "Reset Default Parameters", command = ResetDefault, width = 50, bg = "#07C87D", fg = "#FFFFFF").pack()
+    ResetBTN = tk.Button(master = GphysiXframe, text = "Activate GphysiX", command = ResetDefault, width = 50, bg = "#07C87D", fg = "#FFFFFF").pack()
     RandomBTN = tk.Button(master = GphysiXframe, text = "Set Random Parameters", command = ChangeParam, width = 50, bg = "#07C87D", fg = "#FFFFFF").pack()
     
 
