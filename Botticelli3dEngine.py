@@ -14,7 +14,7 @@ fSize = [500, 500]
 lignCountH = 25
 lignCountV = 100
 
-camPos = [0, 3, 0]
+camPos = [0, 0, 3]
 
 canvasPosX = 2
 
@@ -24,31 +24,38 @@ lastLignPosY = 0
 frame = tk.Tk() # setup tkinter frame
 frame.title("Botticelli 3D engine")
 
-def ResetDefault() :
-    camPos[1] = 3
-    canvasPosX = 2
 
-    print("[DEBUG] : Reset, Cam position = 3, canvas position X = 2")
+def panelEnv() :
+    envFrame = tk.Tk()
+    envFrame.title("3D Environment")
 
-def ChangeParam() :
-    camPos[1] = randint(1, 5)
-    canvasPosX = randint(1, 5)
-    print("[DEBUG] : Change 3D parameters, cam Y pos =", camPos[1], "; canvas Pos X =", canvasPosX)
+    envC = tk.Canvas(envFrame, width = 300, height = 300, background = "black")
+    envC.pack()
 
-def changeParametersFrame() :
-    stgRoot = tk.Tk()
-    stgRoot.title("3D Parameters")
-    
-    stgFrame = tk.Frame(stgRoot, width = 250, height = 250)
-    stgFrame.pack(fill = None, expand = False)
+    def drawEnv() :
+        envC.delete("all")
+        for x in range(0, 10):
+            if x == 5 :
+                envC.create_line(x * 30, 0, x * 30, 300, fill = "red")
+            else :
+                envC.create_line(x * 30, 0, x * 30, 300, fill = "white")
 
-    TitleTXT = tk.Label(master = stgFrame, text = "Parameters", width = 20, height = 2, font=('Open Sans', '24')).pack()
-    
-    ResetBTN = tk.Button(master = stgFrame, text = "Reset Default Parameters", command = ResetDefault, width = 50, bg = "#07C87D", fg = "#FFFFFF").pack()
-    
-    RandomBTN = tk.Button(master = stgFrame, text = "Set Random Parameters", command = ChangeParam, width = 50, bg = "#07C87D", fg = "#FFFFFF").pack()
+        for y in range(0, 10):
+            if y == 5 :
+                envC.create_line(0, y * 30, 300, y * 30, fill = "blue")
+            else :
+                envC.create_line(0, y * 30, 300, y * 30, fill = "white")
 
-    stgRoot.mainloop()
+        camX = camPos[0] * 30 + 150
+        camY = camPos[1] * 30 + 150
+        
+        envC.create_rectangle(camX - 5, camY - 5, camX + 5, camY + 5, fill = "yellow")
+        envC.create_line(camX - 50, camY - canvasPosX * 30, camX + 50, camY - canvasPosX * 30, fill = "green")
+
+        print("[DEBUG] : Environment panel")
+
+    drawEnv()
+    envFrame.mainloop()
 
 
 c = tk.Canvas(frame, width = fSize[0], height = fSize[1], background = "black") # create canvas
@@ -66,9 +73,9 @@ def Generate3dGrid() :
     c.create_rectangle(0, fSize[1], fSize[0], fSize[1], fill = "blue") # draw sky
     
     for h in range(0, lignCountH) : # Drawing horizontal ligns
-        pointOnScreenY = fSize[1] - int(((camPos[1] * ((h + 1) - canvasPosX)) / (h + 1)) * 100)
+        pointOnScreenY = fSize[1] - int(((camPos[2] * ((h + 1) - canvasPosX)) / (h + 1)) * 100)
 
-        if h == 2 :
+        if h == 0 :
             c.create_line(0, pointOnScreenY, fSize[0], pointOnScreenY, fill = "blue")
         else :
             c.create_line(0, pointOnScreenY, fSize[0], pointOnScreenY, fill = "white")
@@ -119,10 +126,9 @@ def GetInfos() :
     print()
 
 
+envBTN = tk.Button(master = frame, text = "Environment", command = panelEnv, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
+HierarchyBTN = tk.Button(master = frame, text = "Hierarchy", command = Generate3dGrid, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
 genBTN = tk.Button(master = frame, text = "Generate 3D grid", command = Generate3dGrid, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
-changeBTN = tk.Button(master = frame, text = "Change 3D parameters", command = changeParametersFrame, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
-infosBTN = tk.Button(master = frame, text = "Get Infos (CONSOLE)", command = GetInfos, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
-closeBTN = tk.Button(master = frame, text = "Close", command = exit, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
 tk.Label(master = frame,text = "Botticelli 3D engine - Arthur DETAILLE").pack()
 
 frame.mainloop()
