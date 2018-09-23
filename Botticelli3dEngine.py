@@ -16,7 +16,7 @@ lignCountV = 100
 
 camPos = [0, 0, 3]
 
-canvasPosX = 2
+canvasPosX = camPos[0] + 2
 
 lastLignPosY = 0
 
@@ -50,9 +50,25 @@ def panelEnv() :
         camY = camPos[1] * 30 + 150
         
         envC.create_rectangle(camX - 5, camY - 5, camX + 5, camY + 5, fill = "yellow")
-        envC.create_line(camX - 50, camY - canvasPosX * 30, camX + 50, camY - canvasPosX * 30, fill = "green")
+        envC.create_line(camX - 50, (canvasPosX + 1) * 30, camX + 50, (canvasPosX + 1) * 30, fill = "green")
 
-        print("[DEBUG] : Environment panel")
+        print("[DEBUG] : Draw Environment")
+
+    def resetParam() :
+        camPos = [0, 0, 3]
+        canvasPosX = camPos[0] + 2
+        print("[DEBUG] : Reset parameters")
+        drawEnv()
+
+
+    def randomParam() :
+        camPos[2] = 5
+        canvasPosX = camPos[0] + 5
+        print("[DEBUG] : random parameters")
+        drawEnv()
+
+    ResetBTN = tk.Button(master = envFrame, text = "Reset Parameters", command = resetParam).pack()
+    RandomBTN = tk.Button(master = envFrame, text = "Random Parameters", command = randomParam).pack()
 
     drawEnv()
     envFrame.mainloop()
