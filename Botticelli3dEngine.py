@@ -14,7 +14,7 @@ fSize = [500, 500]
 lignCountH = 25
 lignCountV = 100
 
-camPos = [0, 0, 3]
+camPos = [0, 1, 0]
 
 canvasPosX = 2
 
@@ -28,7 +28,7 @@ def panelEnv() :
     envFrame.title("3D Environment")
 
     envC = tk.Canvas(envFrame, width = 300, height = 300, background = "black")
-    envC.pack()
+    envC.pack(padx=10, pady=10)
 
     def drawEnv() :
         #camPosTXT.config(text = "Camera position = " + str(camPos[0]) + ";" + str(camPos[1]) + ";" + str(camPos[2]))
@@ -47,7 +47,7 @@ def panelEnv() :
                 envC.create_line(0, y * 30, 300, y * 30, fill = "white")
 
         camX = int(camPos[0] * 30 + 150)
-        camY = int(camPos[1] * 30 + 150)
+        camY = int(camPos[2] * 30 + 150)
         
         envC.create_rectangle(camX - 5, camY - 5, camX + 5, camY + 5, fill = "yellow")
         envC.create_line(camX - 50, camY - 2 * 30, camX + 50, camY - 2 * 30, fill = "green")
@@ -67,22 +67,32 @@ def panelEnv() :
         print("[DEBUG] : random parameters")
         drawEnv()
 
+    def Refresh() :
+        camPos[0] = int(CamXsb.get())
+        camPos[1] = int(CamYsb.get())
+        camPos[2] = int(CamZsb.get())
+
+        drawEnv()
+        Generate3dGrid()
+        
+    #RandomBTN = tk.Button(master = envFrame, text = "Random Parameters", command = randomParam).pack()
+
+    camPosTXT = tk.Label(master = envFrame, text = "Camera position :", fg = "black").pack()
+    CamXsb = tk.Spinbox(master = envFrame, from_=0, to=10).pack()
+    CamYsb = tk.Spinbox(master = envFrame, from_=1, to=10).pack()
+    CamZsb = tk.Spinbox(master = envFrame, from_=0, to=10).pack()
+
+    RefreshBTN = tk.Button(master = envFrame, text = "Refresh", command = Refresh).pack()
     ResetBTN = tk.Button(master = envFrame, text = "Reset Parameters", command = resetParam).pack()
-    RandomBTN = tk.Button(master = envFrame, text = "Random Parameters", command = randomParam).pack()
-
-    camPosTXT = tk.Label(master = envFrame, text = "Camera position = " + str(camPos[0]) + "; " + str(camPos[1]) + "; " + str(camPos[2]), fg = "black").pack()
-
-    #camPosTXT.config(text = "Camera position = " + str(camPos[0]) + ";" + str(camPos[1]) + ";" + str(camPos[2]))
 
     drawEnv()
     envFrame.mainloop()
 
 
 c = tk.Canvas(frame, width = fSize[0], height = fSize[1], background = "black") # create canvas
-c.pack() # compile canvas (c)
+c.pack(padx=10, pady=10) # compile canvas (c)
 
-print("[DEBUG] : PROGRAM START, WELCOME !")
-
+print("[DEBUG] : PROGRAM START, WELCOME !")    
 
 def Generate3dGrid() :
     
@@ -90,7 +100,7 @@ def Generate3dGrid() :
     c.create_rectangle(0, fSize[1], fSize[0], fSize[1], fill = "blue") # draw sky
     
     for h in range(0, lignCountH) : # Drawing horizontal ligns
-        pointOnScreenY = fSize[1] - int(((camPos[2] * ((h + 1) - canvasPosX)) / (h + 1)) * 100)
+        pointOnScreenY = fSize[1] - int(((camPos[1] * ((h + 1) - canvasPosX)) / (h + 1)) * 100)
 
         if h == 0 :
             c.create_line(0, pointOnScreenY, fSize[0], pointOnScreenY, fill = "blue")
@@ -144,7 +154,7 @@ def GetInfos() :
 
 
 envBTN = tk.Button(master = frame, text = "Environment", command = panelEnv, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
-HierarchyBTN = tk.Button(master = frame, text = "Hierarchy", command = Generate3dGrid, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
+HierarchyBTN = tk.Button(master = frame, text = "Movement", command = Generate3dGrid, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
 genBTN = tk.Button(master = frame, text = "Generate 3D grid", command = Generate3dGrid, bg = "#07C87D", fg = "#FFFFFF", font=('Open Sans', '12'), width = 50).pack()
 tk.Label(master = frame,text = "Botticelli 3D engine - Arthur DETAILLE").pack()
 
