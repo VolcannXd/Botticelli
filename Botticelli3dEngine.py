@@ -16,14 +16,12 @@ lignCountV = 100
 
 camPos = [0, 0, 3]
 
-canvasPosX = camPos[0] + 2
+canvasPosX = 2
 
 lastLignPosY = 0
 
-#prgmStatus = StringVar()
 frame = tk.Tk() # setup tkinter frame
 frame.title("Botticelli 3D engine")
-
 
 def panelEnv() :
     envFrame = tk.Tk()
@@ -33,6 +31,8 @@ def panelEnv() :
     envC.pack()
 
     def drawEnv() :
+        #camPosTXT.config(text = "Camera position = " + str(camPos[0]) + ";" + str(camPos[1]) + ";" + str(camPos[2]))
+        
         envC.delete("all")
         for x in range(0, 10):
             if x == 5 :
@@ -46,11 +46,11 @@ def panelEnv() :
             else :
                 envC.create_line(0, y * 30, 300, y * 30, fill = "white")
 
-        camX = camPos[0] * 30 + 150
-        camY = camPos[1] * 30 + 150
+        camX = int(camPos[0] * 30 + 150)
+        camY = int(camPos[1] * 30 + 150)
         
         envC.create_rectangle(camX - 5, camY - 5, camX + 5, camY + 5, fill = "yellow")
-        envC.create_line(camX - 50, (canvasPosX + 1) * 30, camX + 50, (canvasPosX + 1) * 30, fill = "green")
+        envC.create_line(camX - 50, camY - 2 * 30, camX + 50, camY - 2 * 30, fill = "green")
 
         print("[DEBUG] : Draw Environment")
 
@@ -70,13 +70,9 @@ def panelEnv() :
     ResetBTN = tk.Button(master = envFrame, text = "Reset Parameters", command = resetParam).pack()
     RandomBTN = tk.Button(master = envFrame, text = "Random Parameters", command = randomParam).pack()
 
-    CamPosX = tk.Entry(master = envFrame).pack()
-    CamPosY = tk.Entry(master = envFrame).pack()
-    CamPosZ = tk.Entry(master = envFrame).pack()
+    camPosTXT = tk.Label(master = envFrame, text = "Camera position = " + str(camPos[0]) + "; " + str(camPos[1]) + "; " + str(camPos[2]), fg = "black").pack()
 
-    canvasPosX = tk.Entry(master = envFrame).pack()
-
-    ApplyBTN = tk.Button(master = envFrame, text = "Apply Changes").pack()
+    #camPosTXT.config(text = "Camera position = " + str(camPos[0]) + ";" + str(camPos[1]) + ";" + str(camPos[2]))
 
     drawEnv()
     envFrame.mainloop()
@@ -87,11 +83,8 @@ c.pack() # compile canvas (c)
 
 print("[DEBUG] : PROGRAM START, WELCOME !")
 
-#prgmStatus.set("Nothing to do for now....")
 
 def Generate3dGrid() :
-    #prgmStatus.set("PROCESSING 3D CALCULATION....")
-    #statusTXT.update_idletasks()
     
     c.delete("all")
     c.create_rectangle(0, fSize[1], fSize[0], fSize[1], fill = "blue") # draw sky
