@@ -4,7 +4,7 @@ Homemade 3D engine
 This 3D engine was developped by Arthur DETAILLE in september 2018.
 Running in Python 3.6.4
 
-the goal : Create a simple 3D engine easely usable
+the goal : Create a simple 3D engine easely usable without looking at the internet. All the calculation was figuring out by myself =)
 
 You can use it and re-use it anywhere you want. I can't force you to put my name in the code but it can be helpful =)
 
